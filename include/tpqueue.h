@@ -16,7 +16,7 @@ class TPQueue {
         T data;
         Item* next;
         Item* prev;
-    };    
+    };
     Item* head;
     Item* tail;
     Item* createItem(const T& data) {
@@ -26,12 +26,13 @@ class TPQueue {
         newItem->prev = nullptr;
         return newItem;
     }
-public:
+
+ public:
     TPQueue() : head(nullptr), tail(nullptr) {}
     T pop() {
-        if (!head) 
+        if (!head)
             throw std::underflow_error("Queue is Empty!");
-        
+
         Item* temp = head->next;
         T data = head->data;
         delete head;
@@ -47,18 +48,18 @@ public:
     }
     void push(const T& newData) {
         if (head == nullptr) {
-            head = create(newData);
+            head = createItem(newData);
             tail = head;
         } else if (tail->data.prior >= newData.prior) {
             if (tail->data.ch == newData.ch) {
               tail->data = newData;
             } else {
-                tail->next = create(newData);
+                tail->next = createItem(newData);
                 tail->next->prev = tail;
                 tail = tail->next;
             }
         } else if (head == tail) {
-            tail->prev = create(newData);
+            tail->prev = createItem(newData);
             head = tail->prev;
             head->next = tail;
         }
